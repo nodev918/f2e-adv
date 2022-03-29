@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import ReactDOM from 'react-dom'
 
 import './style.scss'
@@ -51,63 +51,9 @@ const Modal: React.FunctionComponent<Props> = (props) => {
     )
 }
 
-const dialog = (content: ReactNode, footer?: Array<ReactElement>, afterClose?: () => void) => {
-    const close = () => {
-        ReactDOM.render(React.cloneElement(component, { visible: false }), div)
-        ReactDOM.unmountComponentAtNode(div)
-        div.remove()
-    }
-    const component =(
-        <Modal
-            visible={true}
-            footer={footer}
-            onClose={() => {
-                close();
-                afterClose && afterClose()
-            }}>
-            {content}
-        </Modal>)
-    const div = document.createElement('div')
-    document.body.append(div)
-    ReactDOM.render(component, div)
-    return close
-}
-
-// const dialog = (content: ReactNode) => {
-//     const com = <Modal visible={true} onClose={() => {
-//         ReactDOM.render(React.cloneElement(com, { visible: false }), div)
-//         ReactDOM.unmountComponentAtNode(div)
-//         div.remove()
-//     }}> {content} </Modal>
-//     const div = document.createElement('div')
-//     document.body.append(div)
-//     ReactDOM.render(com, div)
-// }
-
-const alert = (content: string) => {
-    const footer = <button onClick={() => close()}>OK</button>
-    const close = dialog(content, [footer])
-}
-const confirm = (content: string, yes?: () => void, no?: () => void) => {
-    const onYes = () => {
-        close()
-        yes && yes()
-    }
-    const onNo = () => {
-        close()
-        no && no()
-    }
-    const footer = [
-        <button onClick={onYes}>yes</button>,
-        <button onClick={onNo}>no</button>
-    ]
-    const close = dialog(content, footer, no)
-}
 
 Modal.defaultProps = {
-    closeBtn: true,
-    closeOnClickMask: true
+    closeBtn: true
 }
 
-export { dialog, alert, confirm }
 export default Modal

@@ -11,7 +11,7 @@ import ModalExample from './storybook/modal.example'
 
 // storybook index
 const Home: React.FunctionComponent = () => {
-  window.history.pushState(null, '', '/')
+  window.history.pushState(null, '', '')
   return (<div className="intro">
     molecular ui 試圖以最容易的方式詮釋高效！
     所謂經典，是在於對返璞歸真的實踐。<br />

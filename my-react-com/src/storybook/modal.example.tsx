@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import Icon from '../lib/icon/icon.com'
-import Modal, { dialog, alert, confirm } from '../lib/modal/modal.com'
+import Modal, { dialog, info, alert, confirm } from '../lib/modal'
 
 const styles: { [key: string]: React.CSSProperties } = {
     bottonLeft: {
@@ -54,7 +54,7 @@ function countDownModal() {
     let secondsToGo = 5
 
     const footer = <button onClick={() => close()}>OK</button>
-    const close = dialog('５秒後自動關閉', [footer])
+    const destroy = dialog('５秒後自動關閉', [footer])
 
     const timer = setInterval(() => {
         secondsToGo -= 1
@@ -64,7 +64,7 @@ function countDownModal() {
     setTimeout(() => {
         clearInterval(timer)
         console.log("停止")
-        close()
+        destroy()
     }, secondsToGo * 1000)
 }
 
@@ -73,11 +73,12 @@ const ModalExample: React.FunctionComponent = () => {
         <p>Modal:</p>
         <MyModal /> <MyInfo />
         <button style={styles.bottonLeft} onClick={countDownModal}>Open modal to close in 5s</button>
+        <button style={styles.bottonLeft} onClick={() => info('提示訊息視窗，只能關閉')}>Info</button>
         <button style={styles.bottonLeft} onClick={() => alert('注意')}>Alert</button>
         <button style={styles.bottonLeft} onClick={() => confirm('1', () => {
-            console.log('You say yes')
+            console.log('You click sure')
         }, () => {
-            console.log('You say no')
+            console.log('You click not')
         })}>Confirm
         </button>
     </>)
